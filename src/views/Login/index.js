@@ -11,13 +11,13 @@ export default function Login() {
 
   const jump = async () => {
     let res = await login({u:'abc', p:'123'});
-    // navigate('/home')
-    console.log(res, 'login---res')
+    console.log(res, 'login---res');
+    navigate('/home')
   }
 
   return (
     <div>Login page
-      <button onClick={()=>jump()}>go to home page</button>
+      <button onClick={()=>jump()}>go to home page2</button>
     </div>
   )
 }

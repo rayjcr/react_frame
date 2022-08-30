@@ -1,14 +1,18 @@
 import { BrowserRouter } from 'react-router-dom';
 import Routers from './router';
-import { AuthProvider, RequireAuth } from './router/Auth';
+import { AuthProvider } from './router/Auth';
+import { Provider, useDispatch } from 'react-redux';
+import store from './store';
 
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AuthProvider>
           <Routers />
-      </AuthProvider>
-    </BrowserRouter>
+        </AuthProvider>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

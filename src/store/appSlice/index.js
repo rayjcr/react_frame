@@ -111,11 +111,11 @@ export const appSlice = createSlice({
 //     }));
 // }
 // 获取用户基本数据并更新redux的数据
-// export const fetchUserInfo = params => async (dispatch, getState) => {
-//     const res = await getUserInfo();
-//     dispatch(setState({userInfo:res}));
-//     return res
-// }
+export const fetchUserInfo = params => async (dispatch, getState) => {
+    // const res = await getUserInfo();
+    dispatch(setState({userInfo:{username:'jiangcui', age:32, sex:'male'}}));
+    return 'OKK'
+}
 
 export const { setState } = appSlice.actions;
 export default appSlice.reducer;
