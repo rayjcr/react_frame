@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import PermissionHoc from '../../common/PermissionHoc';
 
 const Home = memo(({ app }) => {
   const navigate = useNavigate();
@@ -23,5 +24,4 @@ const mapStateToProps = (state) => {
   return { app };
 }
 
-export default connect(mapStateToProps)(Home);
-
+export default connect(mapStateToProps)(PermissionHoc([1])(Home))

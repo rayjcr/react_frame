@@ -11,7 +11,7 @@ export default function Login() {
 
   const jump = async () => {
     let res = await login({u:'abc', p:'123'});
-    console.log(res, 'login---res');
+    // console.log(res, 'login---res');
     navigate('/home')
   }
 
