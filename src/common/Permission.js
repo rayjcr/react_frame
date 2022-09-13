@@ -1,5 +1,4 @@
-import { memo, createContext, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { memo, createContext } from 'react';
 import { connect } from 'react-redux';
 
 export const PermissionContext = createContext([]);

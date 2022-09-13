@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 // import { getToken, getSemesterList, getWeeklyList, getClassListByTeacherID,getClassListSubjectByTeacherID,getMyChildren,getYearTermList,getWeekList} from '../../api/index';
+import { login } from "../../api";
 // import { find } from 'lodash';
 // 等同于vuex的功能，app是一个全局切片，根据业务可以拆分出不同的切片
 export const appSlice = createSlice({
@@ -113,8 +114,11 @@ export const appSlice = createSlice({
 // 获取用户基本数据并更新redux的数据
 export const fetchUserInfo = params => async (dispatch, getState) => {
     // const res = await getUserInfo();
-    dispatch(setState({userInfo:{username:'jiangcui', age:32, sex:'male', role:1}}));
-    return 'OKK'
+    const res = await login(params);
+    // dispatch(setState({userInfo:{username:'jiangcui', age:32, sex:'male', role:1}}));
+    console.log(res, 'appSlice-login-res')
+    // dispatch(setState({userInfo:null}));
+    return true;
 }
 
 export const { setState } = appSlice.actions;

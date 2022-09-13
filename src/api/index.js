@@ -1,13 +1,12 @@
 import request from '../utils/request';
-const base = '/api'
+const dashboardUrl = 'http://localhost:8400/api'
 
 // 根据用户名，密码获取用户信息、Token
 export async function getToken(params) {
-
     return new Promise((res, rej)=>{
         setTimeout(()=>{
             res({token:'fadfasga'})
-        },1000)
+        },3000)
     })
 }
 
@@ -15,6 +14,22 @@ export async function getUserInfo(params) {
     return new Promise((res, rej)=>{
         setTimeout(()=>{
             res({user:'Jiang cui', age:23, other:'test_Info'})
-        },1000)
+        },3000)
+    })
+}
+
+export async function fetchTimeoutData(data) {
+    console.log('调用TimeoutData')
+    return new Promise((res, rej)=>{
+        setTimeout(()=>{
+            res({token:'fadfasga'})
+        },13000)
+    })
+}
+
+export async function login(data) {
+    return request(`${dashboardUrl}/login`, {
+        method: 'POST',
+        data,
     })
 }

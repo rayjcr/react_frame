@@ -11,6 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+#nprogress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  z-index: 9999;
+}
+
+#nprogress .bar {
+  background: rgb(51, 105, 253);
+  height: 5px;
+}
 
 .header {
   width: 100%;

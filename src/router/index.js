@@ -1,12 +1,12 @@
-import { memo, useEffect } from 'react'
-import { useRoutes, useLocation, useNavigate } from "react-router-dom";
+import { memo } from 'react'
+import { useRoutes } from "react-router-dom";
 
-import { routes, onRouteBefore } from './routes';
+import { routes } from './routes';
 
 export default memo(() => {   
 
-    const location = useLocation();
-    const navigate = useNavigate();
+    // const location = useLocation();
+    // const navigate = useNavigate();
 
     const elements = useRoutes(routes);
 

@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { RequireAuth } from './Auth';
-import PageA from '../views/pageA';
-import PageB from '../views/pageB';
+// import PageA from '../views/pageA';
+// import PageB from '../views/pageB';
 import PageC from '../views/pageC';
 import Layout from '../layout';
 import Home from '../views/Home';
