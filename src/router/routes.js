@@ -1,12 +1,13 @@
 import { Navigate } from 'react-router-dom';
 import { RequireAuth } from './Auth';
-// import PageA from '../views/pageA';
-// import PageB from '../views/pageB';
+import PageA from '../views/pageA';
+import PageB from '../views/pageB';
 import PageC from '../views/pageC';
 import Layout from '../layout';
-import Home from '../views/Home';
+// import Home from '../views/Home';
 import List from '../views/List';
 import Login from '../views/Login';
+import NotFound from '../views/NotFound';
 
 const routes = [
     {
@@ -24,11 +25,35 @@ const routes = [
         title: '/',
         element: <RequireAuth><Layout /></RequireAuth>,
         isMenu: false,
+        rootMenu: true,
         children: [
             {
                 path: 'home',
                 title: 'HOME',
-                element: <Home />
+                // element: <Home />,
+                children: [
+                    {
+                        path: 'home_a',
+                        title: 'home_a',
+                        element: <PageA />
+                    },
+                    {
+                        path: 'home_b',
+                        title: 'home_b',
+                        children:[
+                            {
+                                path: 'home_b_son_b',
+                                title: 'home_b_son_b',
+                                element: <PageB />
+                            }
+                        ]
+                    },
+                    {
+                        path: 'home_c',
+                        title: 'home_c',
+                        element: <PageC />
+                    }
+                ]
             },
             {
                 path: 'list',
@@ -39,8 +64,8 @@ const routes = [
     },
     {
         path: '*',
-        title: 'login',
-        element: <PageC />,
+        title: 'NotFound',
+        element: <NotFound />,
         isMenu: false,
     },
 ]

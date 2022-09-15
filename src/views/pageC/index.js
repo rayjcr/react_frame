@@ -6,7 +6,7 @@ const PageC = () => {
   const navigate = useNavigate();
 
   const jump = () => {
-    navigate('/a')
+    navigate('/home/home_a')
   }
 
   return (

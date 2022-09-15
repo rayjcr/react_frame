@@ -24,7 +24,6 @@ const useAuth = () => {
     authed,
     async login(params) {
       // console.log(params, 'params')
-      // const { u, p } = params;
       let res = await login(params);
       console.log(res, 'getToken-res')
 
