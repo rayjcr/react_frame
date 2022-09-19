@@ -20,8 +20,8 @@ const List = memo(() => {
     <div className='pageMain'>List Page
         <button onClick={()=>jump()}>go to Home_a Page</button>
         <button onClick={()=>showMsg('test, Notification, oy')}>msg</button>
-        <div style={{height:'2000px',width:'100%',background:'#f3f3f3'}}>
-
+        <div style={{height:'2000px',width:'100%',background:'#f3f3f3',marginTop:'10px'}}>
+          
         </div>
     </div>
   )
@@ -32,5 +32,5 @@ const mapStateToProps = (state) => {
   return { app };
 }
 
-// export default connect(mapStateToProps)(PermissionHoc([1])(List));
-export default connect(mapStateToProps)(List);
+export default connect(mapStateToProps)(PermissionHoc([1])(List));
+// export default connect(mapStateToProps)(List);
