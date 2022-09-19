@@ -10,7 +10,9 @@ const PageA = () => {
   }
 
   return (
-    <div>PageA <button onClick={()=>jump()}>go to home page33333</button></div>
+    <div className='pageMain' style={{background:'#B0E0E6'}}>
+      PageA <button onClick={()=>jump()}>go to home page33333</button>
+    </div>
   )
 }
 

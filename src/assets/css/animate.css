@@ -23,3 +23,26 @@
 .fade-exit-done{
     opacity: 0;
 }
+
+
+.page-appear,
+.page-enter {
+    opacity: 0;
+    z-index: 1;
+}
+
+.page-appear-active,
+.page-enter.page-enter-active {
+    opacity: 1.0;
+    transition: 600ms all;
+}
+
+.page-exit {
+    opacity: 1.0;
+    z-index: 2;
+}
+
+.page-exit.page-exit-active {
+    opacity: 0;
+    transition: 300ms all;
+}

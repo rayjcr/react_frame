@@ -34,7 +34,7 @@ const PageC = () => {
   }, [])
   
   return (
-    <div>
+    <div className='pageMain' style={{background:'#FFEFD5'}}>
       PageC <button onClick={()=>jump()}>go pageA</button>
       <div>
         this is Menu config:
