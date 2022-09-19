@@ -32,5 +32,5 @@ const mapStateToProps = (state) => {
   return { app };
 }
 
-export default connect(mapStateToProps)(PermissionHoc([1])(List));
+export default connect(mapStateToProps)(PermissionHoc(['manager'])(List));
 // export default connect(mapStateToProps)(List);

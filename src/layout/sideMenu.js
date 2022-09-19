@@ -66,6 +66,9 @@ const SideMenu = memo(() => {
       setMenu([...menu]);
     } else {
       // 根据真实URL重新定位,展开菜单
+      if(location.pathname === ('/' + itemMenu.realPath)){
+        return false
+      }
       locateMenu(menu, itemMenu.realPath);
       setMenu([...menu])
       navigate(itemMenu.realPath)

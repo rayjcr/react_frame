@@ -60,7 +60,13 @@ const routes = [
                         title: 'home_c',
                         key: 'home_c',
                         element: <PageC />
-                    }
+                    },
+                    {
+                        path: '',
+                        title: 'root_NotFound',
+                        key: 'root_NotFound',
+                        element: <NotFound />,
+                    },
                 ]
             },
             {
