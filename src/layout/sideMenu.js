@@ -1,55 +1,63 @@
 /* eslint-disable */
-import React, { memo, useEffect, useState, useCallback } from 'react';
+import React, { memo, useEffect, useState, useCallback, forwardRef } from 'react';
 import css from './index.module.scss';
 import { routes } from '../router/routes';
 import { find } from 'lodash';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Transition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+// import { } from '../api';
+import { addRealPath } from '../utils/tools';
+// import QueueAnim from 'rc-queue-anim';
 
-const duration = 300;
-const defaultStyle = {
-  transition: `opacity ${duration}ms ease-in-out`,
-  opacity: 0,
-}
-const transitionStyles = {
-  entering: { opacity: 1 },
-  entered: { opacity: 1 },
-  exiting: { opacity: 0 },
-  exited: { opacity: 0 },
-}
+
+// const Menu = memo(({ itemMenu, clickMenu }) => {
+//   return <>
+//     <div className={[css.menu, itemMenu.active && css.active].join(' ')} onClick={()=>clickMenu(itemMenu)}>{itemMenu.title}</div>
+//     {itemMenu.children && itemMenu.children.map(item => {
+//       return itemMenu.open && <Menu key={item.title} clickMenu={clickMenu} itemMenu={item}/>
+//     })}
+//   </>
+// })
 
 const Menu = memo(({ itemMenu, clickMenu }) => {
-  const [inProp, setInProp] = useState(false);
-  const delay = () => {
-    setTimeout(() => {
-      !inProp && setInProp(!inProp)
-    }, 2000)
-  }
   return <>
-    <div className={[css.menu, itemMenu.active && css.active].join(' ')} onClick={()=>clickMenu(itemMenu)}>{itemMenu.title}</div>
-    {itemMenu.children && itemMenu.children.map(item => {
-      return itemMenu.open && <Menu key={item.title} clickMenu={clickMenu} itemMenu={item}/>
-    })}
+    {itemMenu.isShow && <>
+      <div className={[css.menu, itemMenu.active && css.active].join(' ')} onClick={()=>clickMenu(itemMenu)}>{itemMenu.title}</div>
+      {itemMenu.children && itemMenu.children.map(item => {
+        return (
+          <CSSTransition
+            in = {itemMenu.open}
+            timeout  = {300}
+            classNames = 'fade'
+            unmountOnExit
+            appear = {true}
+            key={item.title}
+          >
+            <Menu key={item.title} clickMenu={clickMenu} itemMenu={item}/>
+          </CSSTransition>
+        )
+      })}
+    </>}
   </>
 })
 
 const SideMenu = memo(() => {
   const [menu, setMenu] = useState([]);
-  const naNavigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
 
-  const addRealPath = useCallback(
-    (menuList, rootPath) => {
-      menuList.forEach(item => {
-        item.realPath = (rootPath ? (rootPath+'/') : rootPath) + item.path;
-        if(item.children) {
-          addRealPath(item.children, item.realPath);
-        }
-      })
-      return menuList;
-    },
-    [],
-  )
+  // const addRealPath = useCallback(
+  //   (menuList, rootPath) => {
+  //     menuList.forEach(item => {
+  //       item.realPath = (rootPath ? (rootPath+'/') : rootPath) + item.path;
+  //       if(item.children) {
+  //         addRealPath(item.children, item.realPath);
+  //       }
+  //     })
+  //     return menuList;
+  //   },
+  //   [],
+  // )
    
   const clickMenu = (itemMenu) => {
     // 如果有子菜单就打开子菜单
@@ -60,7 +68,7 @@ const SideMenu = memo(() => {
       // 根据真实URL重新定位,展开菜单
       locateMenu(menu, itemMenu.realPath);
       setMenu([...menu])
-      naNavigate(itemMenu.realPath)
+      navigate(itemMenu.realPath)
     }
   }
 
@@ -90,29 +98,74 @@ const SideMenu = memo(() => {
     for(let i=0;i<pathArr.length;i++) {
       if(pathArr[i]){
         curMenu = find(curMenu, {'path':pathArr[i]});
-        if(curMenu.children){
-          curMenu.open = true;
-          curMenu = curMenu.children
-        } else {
-          curMenu.active = true;
+        // 如果目标路由状态是 isShow=false，则跳转到404
+        if(!curMenu.isShow){
+          navigate('/404',{
+            replace: true,
+          })
+        }
+        if(curMenu){
+          if(curMenu.children){
+            curMenu.open = true;
+            curMenu = curMenu.children
+          } else {
+            curMenu.active = true;
+          }
         }
       }
     }
     return [...menuList]
   }
 
-  useEffect(() => {
+  /**
+   * 获取用户角色保存在数据库中的权限菜单
+   */
+  const getPermissionMenu = async () => {
+    // 获取完整的路由菜单
+    let rootMenu = find(routes,{'rootMenu':true}).children;
+    // 获取数据库中的权限菜单 ！！（这里可以替换成接口获取并非从浏览器缓存中获取）
+    let permissionList = sessionStorage.getItem('permissionMenu') || [];
+    let permissionMenu = CreatePermissionMenu(rootMenu, permissionList);
+    return permissionMenu;
+  }
+
+  /**
+   * 递归给不在权限里的菜单打上isShow=false,其他为true
+   */
+  const CreatePermissionMenu = (menuList, permissionList) => {
+    menuList.forEach((item)=>{
+      if(permissionList.includes(item.key) || permissionList.length===0){
+        item.isShow = true
+        if(item.children){
+          CreatePermissionMenu(item.children, permissionList);
+        }
+      } else {
+        item.isShow = false
+      }
+    })
+    return menuList
+  }
+
+
+  const setRealMenu = async () => {
+    let permissionMenuList = await getPermissionMenu();
     // 约定菜单以属性 'rootMenu:true' 为标识.它的children为一级菜单
-    let realMenu = addRealPath(find(routes,{'rootMenu':true}).children, '');
+    let realMenu = addRealPath(permissionMenuList, '');
     setMenu(locateMenu(realMenu, location.pathname));
+  }
+
+  useEffect(() => {
+    setRealMenu();
   }, [addRealPath, location.pathname])
   
 
   return (
     <div className={css.sideMenu}>
-      {menu.map(item => {
-        return <Menu key={item.title} clickMenu={clickMenu} itemMenu={item} />
-      })}
+      <TransitionGroup>
+        {menu.map(item => {
+          return <Menu key={item.title} clickMenu={clickMenu} itemMenu={item} />
+        })}
+      </TransitionGroup>
     </div>
   )
 })

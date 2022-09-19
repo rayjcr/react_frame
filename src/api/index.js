@@ -19,11 +19,24 @@ export async function getUserInfo(params) {
 }
 
 export async function fetchTimeoutData(data) {
-    console.log('调用TimeoutData')
+    console.log('调用TimeoutData');
     return new Promise((res, rej)=>{
         setTimeout(()=>{
             res({token:'fadfasga'})
         },13000)
+    })
+}
+
+export async function fetchPermissionMenu() {
+    console.log('获取数据库中的角色菜单权限');
+    return new Promise((res, rej)=>{
+        setTimeout(()=>{
+            res([
+                // {
+                //     path:'home',
+                // },
+            ])
+        },5000)
     })
 }
 

@@ -30,20 +30,25 @@ const routes = [
             {
                 path: 'home',
                 title: 'HOME',
+                key: 'home',
                 // element: <Home />,
                 children: [
                     {
                         path: 'home_a',
                         title: 'home_a',
+                        key: 'home_a',
                         element: <PageA />
                     },
                     {
                         path: 'home_b',
                         title: 'home_b',
+                        key: 'home_b',
+                        // element: <PageB />
                         children:[
                             {
                                 path: 'home_b_son_b',
                                 title: 'home_b_son_b',
+                                key: 'home_b_son_b',
                                 element: <PageB />
                             }
                         ]
@@ -51,6 +56,7 @@ const routes = [
                     {
                         path: 'home_c',
                         title: 'home_c',
+                        key: 'home_c',
                         element: <PageC />
                     }
                 ]
@@ -58,6 +64,7 @@ const routes = [
             {
                 path: 'list',
                 title: 'LIST',
+                key: 'list',
                 element: <List />
             },
         ]
