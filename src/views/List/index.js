@@ -9,7 +9,7 @@ const List = memo(() => {
   const { setMessage } = Auth();
 
   const jump = () => {
-    navigate('/home');
+    navigate('/home/home_a');
   }
 
   const showMsg = (msg) => {
@@ -17,9 +17,12 @@ const List = memo(() => {
   }
 
   return (
-    <div>List Page
-        <button onClick={()=>jump()}>go to Home Page</button>
+    <div className='pageMain'>List Page
+        <button onClick={()=>jump()}>go to Home_a Page</button>
         <button onClick={()=>showMsg('test, Notification, oy')}>msg</button>
+        <div style={{height:'2000px',width:'100%',background:'#f3f3f3'}}>
+
+        </div>
     </div>
   )
 })

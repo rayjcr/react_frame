@@ -1,4 +1,5 @@
 import { Navigate } from 'react-router-dom';
+import { HomeOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { RequireAuth } from './Auth';
 import PageA from '../views/pageA';
 import PageB from '../views/pageB';
@@ -31,6 +32,7 @@ const routes = [
                 path: 'home',
                 title: 'HOME',
                 key: 'home',
+                icon: <HomeOutlined />,
                 // element: <Home />,
                 children: [
                     {
@@ -65,6 +67,7 @@ const routes = [
                 path: 'list',
                 title: 'LIST',
                 key: 'list',
+                icon: <UnorderedListOutlined />,
                 element: <List />
             },
         ]

@@ -22,7 +22,7 @@ import { addRealPath } from '../utils/tools';
 const Menu = memo(({ itemMenu, clickMenu }) => {
   return <>
     {itemMenu.isShow && <>
-      <div className={[css.menu, itemMenu.active && css.active].join(' ')} onClick={()=>clickMenu(itemMenu)}>{itemMenu.title}</div>
+      <div className={[css.menu, itemMenu.active && css.active].join(' ')} onClick={()=>clickMenu(itemMenu)}>{itemMenu.icon} {itemMenu.title}</div>
       {itemMenu.children && itemMenu.children.map(item => {
         return (
           <CSSTransition

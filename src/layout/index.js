@@ -9,7 +9,7 @@ const Layout = memo(() => {
 
   const location = useLocation();
   const outlet = useOutlet();
-  console.log(location, 'location')
+  // console.log(location, 'location')
 
   return (
     <div className={css.layout}>
